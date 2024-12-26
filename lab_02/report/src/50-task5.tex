@@ -1,0 +1,28 @@
+\leftsection{Задание}
+Каковы результаты вычисления следующих выражений?
+
+\begin{lstlisting}[language=Lisp]
+(cons 3 (list 5 6))
+;; (3 5 6)
+
+(cons 3 '(list 5 6))
+;; (3 LIST 5 6)
+
+(list 3 'from 9 'lives (- 9 3))
+;; (3 FROM 9 LIVES 6)
+
+(+ (length for 2 too)) (car '(21 22 23)))
+;; Ошибка
+;; The variable FOR is unbound.
+
+(cdr '(cons is short for ans))
+;; (IS SHORT FOR ANS)
+
+(car (list one two))
+;; Ошибка
+;; The variable ONE is unbound.
+
+(car (list 'one 'two))
+;; ONE
+\end{lstlisting}
+

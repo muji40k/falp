@@ -1,0 +1,19 @@
+\leftsection{Задание}
+Решить задачу 4, используя для ее решения конструкции: только IF, только COND,
+только AND/OR.
+
+\begin{lstlisting}[language=Lisp]
+(defun between-if (num num-l num-h)
+  (if (< num-l num)
+      (< num num-h)
+      (if (/= num-l num) (> num num-h) nil)))
+
+(defun between-cond (num num-l num-h)
+  (cond ((< num-l num num-h))
+        ((> num-l num num-h))))
+
+(defun between-and-or (num num-l num-h)
+  (or (and (< num-l num num-h))
+      (and (> num-l num num-h))))
+\end{lstlisting}
+

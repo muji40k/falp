@@ -1,0 +1,20 @@
+РЕЯ
+Если человек владеет машиной указанной Марки и Цвета,
+найти его Имя, Номер телефона и соответствующий Город проживания.
+
+Prolog
+model_color_to_owner(Mark, Color, Name, Number, City)
+    :- car_owner(Name, Mark, Color, _, _),
+       phone_book(Name, Number, address(City, _, _, _)).
+
+SQL
+select phone_book_f.name, phone_book.phone, address.city
+from (select phone_book.name, phone_book.phone, phone_book.addr_id
+      from phone_book
+      join car_owner
+      on car_owner.model = "Model" and car_owner.color = "Color"
+         and car_owner.name = phone_book.name) as phone_book_f
+ join address
+ on phone_book_f.addr_id = address.id
+
+

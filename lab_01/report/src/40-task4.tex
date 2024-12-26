@@ -1,0 +1,67 @@
+\leftsection{Задание}
+Напишите результат вычисления выражений и объясните как он получен:
+
+\begin{lstlisting}[language=Lisp]
+(list 'Fred 'and 'Wilma)
+;;; (FRED AND WILMA)
+;;; Функция list создает список из переданнаых элементов
+
+(list 'Fred '(and Wilma))
+;;; (FRED (AND WILMA))
+;;; Функция list создает список из переданнаых элементов, второй элемемнт -
+;;; список из 2х элементов
+
+(cons Nil Nil)
+;;; (Nil)
+;;; Функция cons создает списковуй ячейку из переданных аргументов.
+;;; Таким образом, создается ячейка указатель cdr которой равен nil -
+;;; признак конца списка, а значение cda - nil
+
+(cons T Nil)
+;;; (T)
+
+(cons Nil T)
+;;; (NIL . T)
+;;; Второй элемент - не список - создается точечные пара
+
+(list Nil)
+;;; (NIL)
+;;; Список из элемента nil
+
+(cons '(T) Nil)
+;;; ((T))
+;;; Список, первый элемент которого - список
+
+(list '(one two) '(free temp))
+;;; ((ONE TWO) (FREE TEMP))
+;;; Список, оба элемента которого - списки
+
+(cons 'Fred '(and Wilma))
+;;; (FRED AND WILMA)
+;;; Хвост списка - список, поэтому полученная ячейка - список по определению
+
+(cons 'Fred '(Wilma))
+;;; (FRED WILMA)
+
+
+
+(list Nil Nil)
+;;; (NIL NIL)
+;;; Список из двух элементов nil
+
+(list T Nil)
+;;; (T NIL)
+
+(list Nil T)
+;;; (NIL T)
+
+(cons T (list Nil))
+;;; (T NIL)
+
+(list '(T) Nil)
+;;; ((T) NIL)
+
+(cons '(one two) '(free temp))
+;;; ((ONE TWO) FREE TEMP)
+\end{lstlisting}
+

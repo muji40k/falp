@@ -1,0 +1,28 @@
+\leftsection{Задание}
+Что получится при вычисления каждого из выражений?
+
+\begin{lstlisting}[language=Lisp]
+(list 'cons t NIL)
+;; (CONS T NIL)
+
+(eval (list 'cons t NIL))
+;; (T)
+
+(eval (eval (list 'cons t NIL)))
+;; Ошибка
+;; The function COMMON-LISP:T is undefined.
+
+(apply #cons "(t NIL))
+;; Ошибка
+;; illegal complex number format: #CONS
+
+(list 'eval NIL)
+;; (EVAL NIL)
+
+(eval NIL)
+;; NIL
+
+(eval (list 'eval NIL))
+;; NIL
+\end{lstlisting}
+

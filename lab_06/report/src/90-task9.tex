@@ -1,0 +1,21 @@
+\leftsection{Задание}
+Напишите функцию, которая умножает на заданное число-аргумент
+первый числовой элемент списка из заданного 3-х элементного списка-аргумента,
+когда
+
+\begin{enumerate}
+    \item все элементы списка --- числа,
+    \item элементы списка -- любые объекты.
+\end{enumerate}
+
+\begin{lstlisting}[language=Lisp]
+(defun mult-first-num-inner (lst val)
+  (cond ((not lst) nil)
+        ((numberp (car lst)) (rplaca lst (* (car lst) val)))
+        ((mult-first-num (cdr lst) val))))
+
+(defun mult-first-num (lst val)
+  (mult-first-num-inner lst val)
+  lst)
+\end{lstlisting}
+

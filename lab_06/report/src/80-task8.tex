@@ -1,0 +1,36 @@
+\leftsection{Задание}
+Напишите свои необходимые функции, которые обрабатывают таблицу из 4-х
+точечных пар: (страна . столица), и возвращают по стране --- столицу,
+а по столице --- страну.
+
+\begin{lstlisting}[language=Lisp]
+(defun get-capital (table country)
+  (cond ((not table) nil)
+        ((equal (caar table) country) (cdar table))
+        ((get-capital (cdr table) country))))
+
+(defun get-country (table capital)
+  (cond ((not table) nil)
+        ((equal (cdar table) capital) (caar table))
+        ((get-country (cdr table) capital))))
+
+(defun set-capital-inner (table country capital)
+  (cond ((equal (caar table) country) (rplacd (car table) capital))
+        ((not (cdr table)) (cadr (rplacd table (list (cons country capital)))))
+        ((set-capital-inner (cdr table) country capital))))
+
+(defun set-capital (table-name country capital)
+  (let ((table (eval table-name)))
+    (cond ((not table) (car (setf (symbol-value table-name) (list (cons country capital)))))
+          ((set-capital-inner table country capital)))))
+
+(setf table nil)
+(set-capital 'table 'Нидерланды 'Амстердам)
+(set-capital 'table 'Андорра 'Андорра-ла-Велья)
+(set-capital 'table 'Греция 'Афины)
+(set-capital 'table 'Сербия 'Белград)
+(set-capital 'table 'Германия 'Берлин)
+(set-capital 'table 'Швейцария 'Берн)
+(set-capital 'table 'Словакия 'Братислава)
+\end{lstlisting}
+

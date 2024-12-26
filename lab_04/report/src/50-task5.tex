@@ -1,0 +1,21 @@
+\leftsection{Задание}
+Напишите функцию \verb|swap-first-last|, которая переставляет в списке-
+аргументе первый и последний элементы.
+
+\begin{lstlisting}[language=Lisp]
+(defun reverse-set-val (lst val)
+  (rplaca (nreverse lst) val))
+
+(defun swap-first-last-1 (lst)
+  (let ((last-v (car (last lst))))
+    (reverse-set-val (reverse-set-val lst (car lst)) last-v)))
+
+(defun set-last (lst val)
+  (cond ((not lst) nil)
+        ((not (cdr lst)) (let ((tmp (car lst))) (setf (car lst) val) tmp))
+        ((set-last (cdr lst) val))))
+
+(defun swap-first-last-2 (lst)
+  (rplaca lst (set-last lst (car lst))))
+\end{lstlisting}
+

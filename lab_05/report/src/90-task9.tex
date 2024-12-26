@@ -1,0 +1,9 @@
+\leftsection{Задание}
+Пусть \verb|list-of-list| список, состоящий из списков. Написать функцию, которая
+вычисляет сумму длин всех элементов \verb|list-of-list| (количество атомов), т.е. например
+для аргумента \verb|((1 2) (3 4)) -> 4|.
+
+\begin{lstlisting}[language=Lisp]
+(defun sum-length (lst) (apply '+ (mapcar 'length lst)))
+\end{lstlisting}
+

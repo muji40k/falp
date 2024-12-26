@@ -1,0 +1,13 @@
+\leftsection{Задание}
+Написать хвостовую рекурсивную функцию \verb|my-reverse|, которая развернет верхний
+уровень своего списка-аргумента \verb|lst|.
+
+\begin{lstlisting}[language=Lisp]
+(defun my-reverse-inner (lst tmp)
+  (cond ((not lst) tmp)
+        ((my-reverse-inner (cdr lst) (cons (car lst) tmp)))))
+
+(defun my-reverse (lst)
+  (my-reverse-inner lst nil))
+\end{lstlisting}
+

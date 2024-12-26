@@ -1,0 +1,10 @@
+\leftsection{Задание}
+Написать функцию, которая принимает два числа и возвращает список из этих
+чисел, расположенный по возрастанию.
+
+\begin{lstlisting}[language=Lisp]
+(defun sort-2 (num1 num2)
+  (cond ((> num1 num2) (list num2 num1))
+        (T (list num1 num2))))
+\end{lstlisting}
+

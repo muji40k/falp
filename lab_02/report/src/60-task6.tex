@@ -1,0 +1,22 @@
+\leftsection{Задание}
+Дана функция \verb|(defun mystery (x) (list (second x) (first x)))|. Какие
+результаты вычисления следующих выражений?
+
+\begin{lstlisting}[language=Lisp]
+(mystery (one two))
+;; Ошибка
+;; The variable TWO is unbound.
+
+(mystery one 'two))
+;; Ошибка
+;; The variable ONE is unbound.
+
+(mystery (last one two))
+;; Ошибка
+;; The variable ONE is unbound.
+
+(mystery free)
+;; Ошибка
+;; The variable FREE is unbound.
+\end{lstlisting}
+

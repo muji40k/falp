@@ -1,0 +1,29 @@
+\leftsection{Задание}
+Переписать функцию how-alike, приведенную в лекции и использующую COND,
+используя только конструкции IF, AND/OR.
+
+\begin{lstlisting}[language=Lisp]
+(defun how-alike (x y)
+  (cond ((or (= x y) (equal x y)) 'the_same)
+        ((and (oddp x) (oddp y)) 'both_odd)
+        ((and (evenp x) (evenp y)) 'both_even)
+        (T 'difference)))
+\end{lstlisting}
+
+\begin{lstlisting}[language=Lisp]
+(defun how-alike-if (x y)
+  (if (/= x y)
+      (if (not (equal x y))
+          (if (oddp x)
+              (if (oddp y) 'both_odd 'difference)
+              (if (evenp y) 'both_even 'difference))
+          'both_same)
+      'both_same))
+
+(defun how-alike-and-or (x y)
+  (or (and (or (= x y) (equal x y)) 'the_same)
+      (and (and (oddp x) (oddp y)) 'both_odd)
+      (and (and (evenp x) (evenp y)) 'both_even)
+      'difference))
+\end{lstlisting}
+

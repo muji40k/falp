@@ -1,0 +1,10 @@
+\leftsection{Задание}
+Напишите функцию, \verb|select-between|, которая из списка-аргумента,
+содержащего только числа, выбирает только те, которые расположены между двумя
+указанными числами --- границами-аргументами и возвращает их в виде списка.
+
+\begin{lstlisting}[language=Lisp]
+(defun select-between (lst min max)
+  (mapcan (lambda (x) (if (< min x max) (cons x nil) nil)) lst))
+\end{lstlisting}
+

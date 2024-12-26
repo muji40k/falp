@@ -1,0 +1,30 @@
+\leftsection{Задание}
+Чем принципиально отличаются функции \verb|cons|, \verb|list|, \verb|append|?
+
+\verb|(cons object1 object2)| \\
+Возвращает новую ячейку, \verb|car| которой --- \verb|object1|,
+а \verb|cdr| --- \verb|object2|.
+
+\verb|(list &rest objects)| \\
+Возвращает новый список, состоящий из объектов \verb|objects|.
+
+\verb|(append &rest prolists)| \\
+Возвращает список с элементами из всех списков \verb|prolists|. Последний
+аргумент, который может быть любого типа, не копируется.
+
+Каковы результаты вычисления следующих выражений?
+
+\begin{lstlisting}[language=Lisp]
+(setf lst1 '(a b c))
+(setf lst2 '(d e))
+
+(cons lst1 lst2)
+;; ((A B C) D E)
+
+(list lst1 lst2)
+;; ((A B C) (D E))
+
+(append lst1 lst2)
+;; (A B C D E)
+\end{lstlisting}
+

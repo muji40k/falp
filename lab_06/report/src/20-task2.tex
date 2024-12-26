@@ -1,0 +1,17 @@
+\leftsection{Задание}
+Написать функцию, которая возвращает первый элемент списка --- аргумента, который сам
+является непустым списком.
+
+\begin{lstlisting}[language=Lisp]
+(defun my-listp (lst)
+  (cond ((not lst) t)
+        ((atom lst) nil)
+        ((my-listp (cdr lst)))))
+
+(defun get-first-list (lst)
+  (cond ((not lst) nil)
+        ((and (my-listp (car lst)) (/= 0 (length (car lst)))) (car lst))
+        ((get-first-list (cdr lst)))))
+\end{lstlisting}
+
+

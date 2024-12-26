@@ -1,0 +1,43 @@
+\leftsection{Задание}
+Написать простой вариант игры в кости, в котором бросаются две
+правильные кости. Если сумма выпавших очков равна 7 или 11 —
+выигрыш, если выпало (1,1) или (6,6) --- игрок имеет право снова
+бросить кости, во всех остальных случаях ход переходит ко второму
+игроку, но запоминается сумма выпавших очков. Если второй игрок не
+выигрывает абсолютно, то выигрывает тот игрок, у которого больше
+очков. Результат игры и значения выпавших костей выводить на экран с
+помощью функции \verb|print|.
+
+\begin{lstlisting}[language=Lisp]
+(defun get-random-pair () (list (+ (random 6) 1) (+ (random 6) 1)))
+
+(defun turn ()
+  (let* ((pair (get-random-pair)) (sum (+ (car pair) (cadr pair))))
+    (print "Выпавшие очки:")
+    (print pair)
+    (cond ((or (= 1 (first pair) (second pair))
+               (= 6 (first pair) (second pair)))
+           (print "Перебросить? [y/any]: ")
+           (if (eql 'y (progn (finish-output) (read t))) (turn) sum))
+          (sum))))
+
+(defun choose-winner (turn-1 turn-2)
+  (cond ((or (= 7 turn-1) (= 11 turn-1)) 1)
+        ((or (= 7 turn-2) (= 11 turn-2)) 2)
+        ((> turn-1 turn-2) 1)
+        ((< turn-1 turn-2) 2)
+        (0)))
+
+(defun game ()
+  (print "ИГРА В КОСТИ")
+  (print "------------------------")
+  (let ((win (choose-winner
+               (progn (print "Игрок 1") (turn))
+               (progn (print "------------------------")
+                      (print "Игрок 2") (turn)))))
+    (print "------------------------")
+    (cond ((zerop win) (print "Ничья") nil)
+          ((= 1 win) (print "Победитель - игрок 1") nil)
+          ((= 2 win) (print "Победитель - игрок 2") nil))))
+\end{lstlisting}
+

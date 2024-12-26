@@ -1,0 +1,104 @@
+//  #1 --------------------------------------------------------
+match (child:Person) <-[:FATHER|MOTHER]- (parent:Person) <-[:MOTHER]- (grand_mother:Person)
+create (child) <-[:GRAND_MOTHER]- (grand_mother)
+return child, parent, grand_mother
+
+match (child:Person) <-[:MOTHER*2]- (grand_mother:Person)
+return child, grand_mother
+
+match (:Person) <-[rel:GRAND_MOTHER]- (:Person)
+detach delete rel
+//  #2 --------------------------------------------------------
+match (child:Person) <-[:FATHER|MOTHER]- (parent:Person) <-[:FATHER]- (grand_father:Person)
+create (child) <-[:GRAND_FATHER]- (grand_father)
+return child, parent, grand_father
+
+match (:Person) <-[rel:GRAND_FATHER]- (:Person)
+detach delete rel
+//  #3 --------------------------------------------------------
+match (child:Person) <-[:FATHER|MOTHER]- (parent:Person) <-[:FATHER|MOTHER]- (grand:Person)
+create (child) <-[:GRAND_PARENT]- (grand)
+return child, parent, grand
+
+match (:Person) <-[rel:GRAND_PARENT]- (:Person)
+detach delete rel
+//  #4 --------------------------------------------------------
+match (child:Person) <-[:MOTHER]- (parent:Person) <-[:MOTHER]- (maternal_grand_mother:Person)
+create (child) <-[:MATERNAL_GRAND_MOTHER]- (maternal_grand_mother)
+return child, parent, maternal_grand_mother
+
+match (:Person) <-[rel:MATERNAL_GRAND_MOTHER]- (:Person)
+detach delete rel
+//  #5 --------------------------------------------------------
+match (child:Person) <-[:MOTHER]- (parent:Person) <-[:FATHER|MOTHER]- (maternal_grand:Person)
+create (child) <-[:MATERNAL_GRAND_PARENT]- (maternal_grand)
+return child, parent, maternal_grand
+
+//  -----------------------------------------------------------
+//  -----------------------------------------------------------
+
+match (:Person) <-[rel:MATERNAL_GRAND_PARENT]- (:Person)
+detach delete rel
+
+match (n1:Person) <-[rl:MOTHER|FATHER|GRAND_MOTHER]- (n2:Person)
+return n1, rl, n2
+
+match (n1:Person) -[rl:MOTHER|FATHER|SISTER|BROTHER]- (n2:Person)
+return n1, rl, n2
+
+//  -----------------------------------------------------------
+//  -----------------------------------------------------------
+
+//  #6 --------------------------------------------------------
+match (mother:Person) -[:MOTHER]-> (:Person) <-[:FATHER]- (father:Person)
+create (mother) -[:WIFE]-> (father), (mother) <-[:HUSBAND]- (father);
+
+//  #7 --------------------------------------------------------
+match (child1:Person) <-[:MOTHER|FATHER]- (:Person) -[:MOTHER|FATHER]-> (child2:Person)
+where child1.name <> child2.name and child2.gender = "female"
+create (child1) -[:SISTER]-> (child2);
+
+match (child1:Person) <-[:MOTHER|FATHER]- (:Person) -[:MOTHER|FATHER]-> (child2:Person)
+where child1.name <> child2.name and child2.gender = "male"
+create (child1) -[:BROTHER]-> (child2);
+
+//  #8 --------------------------------------------------------
+match (wife:Person) -[:HUSBAND]-> (:Person) -[:MOTHER]-> (mother:Person)
+create (wife) -[:HMOTHER]-> (mother);
+
+match (wife:Person) -[:HUSBAND]-> (:Person) -[:FATHER]-> (father:Person)
+create (wife) -[:HFATHER]-> (father);
+
+match (husband:Person) -[:WIFE]-> (:Person) -[:MOTHER]-> (mother:Person)
+create (husband) -[:WMOTHER]-> (mother);
+
+match (husband:Person) -[:WIFE]-> (:Person) -[:FATHER]-> (father:Person)
+create (husband) -[:WFATHER]-> (father);
+
+//  #9 --------------------------------------------------------
+match (child:Person) <-[:FATHER|MOTHER]- (:Person) -[:BROTHER]-> (uncle:Person)
+create (uncle) -[:UNCLE]-> (child);
+
+match (child:Person) <-[:FATHER|MOTHER]- (:Person) -[:SISTER]-> (aunt:Person)
+create (aunt) -[:AUNT]-> (child);
+
+//  #10 -------------------------------------------------------
+match (child:Person) <-[:UNCLE|AUNT]- (:Person) -[:FATHER|MOTHER]-> (brother:Person)
+where brother.gender = "male" and not (child) -[:STEP_BROTHER]-> (brother)
+create (child) -[:STEP_BROTHER]-> (brother);
+
+match (child:Person) <-[:UNCLE|AUNT]- (:Person) -[:FATHER|MOTHER]-> (sister:Person)
+where sister.gender = "female" and not (child) -[:STEP_SISTER]-> (sister)
+create (child) -[:STEP_SISTER]-> (sister);
+
+match (child1:Person) <-[:FATHER|MOTHER]- (p1:Person) <-[:FATHER|MOTHER]- (:Person) -[:FATHER|MOTHER]-> (p2:Person) -[:FATHER|MOTHER]-> (child2:Person)
+where p1.name <> p2.name
+create (child1) -[:STEP]-> (child2);
+
+match (n1:Person) -[rl:MOTHER|FATHER|STEP]- (n2:Person)
+return n1, rl, n2;
+
+// #11 ---------------------------------------------------------
+match (child:Person) <-[:(MOTHER|FATHER)*3] <- (:Person) <-[:MOTHER]- (grand:Person)
+create (child) <-[:MOTHER4]- (grand)
+

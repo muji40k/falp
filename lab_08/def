@@ -1,0 +1,134 @@
+// ----------------------------------------------------------------------------
+db={
+  "owner": [
+    {
+      "_id": 1,
+      "name": "test",
+      "cost": 1234,
+      "ownership_id": 1
+    },
+    {
+      "_id": 2,
+      "name": "test",
+      "cost": 34,
+      "ownership_id": 2
+    }
+  ],
+  "ownership": [
+    {
+      "_id": 1,
+      "type": "car",
+      "o_id": 1
+    },
+    {
+      "_id": 2,
+      "type": "ship",
+      "o_id": 1
+    }
+  ],
+  "car": [
+    {
+      "_id": 1,
+      "model": "c_t_model"
+    }
+  ],
+  "ship": [
+    {
+      "_id": 1,
+      "model": "s_t_model"
+    }
+  ]
+}
+// ----------------------------------------------------------------------------
+db.owner.aggregate([
+  {
+    "$lookup": {
+      "from": "ownership",
+      "localField": "ownership_id",
+      "foreignField": "_id",
+      "as": "ownership"
+    }
+  },
+  {"$unwind": "$ownership"},
+  {
+    "$facet": {
+      "cars": [
+        {"$match": {"ownership.type": "car"}},
+        {
+          "$lookup": {
+            "from": "car",
+            "localField": "ownership.o_id",
+            "foreignField": "_id",
+            "as": "car"
+          }
+        },
+        {"$project": {"car._id": 0}}
+      ],
+      "buildings": [
+        {"$match": {"ownership.type": "building"}},
+        {
+          "$lookup": {
+            "from": "building",
+            "localField": "ownership.o_id",
+            "foreignField": "_id",
+            "as": "building"
+          }
+        },
+        {"$project": {"building._id": 0}}
+      ],
+      "land_plots": [
+        {"$match": {"ownership.type": "land_plot"}},
+        {
+          "$lookup": {
+            "from": "land_plot",
+            "localField": "ownership.o_id",
+            "foreignField": "_id",
+            "as": "land_plot"
+          }
+        },
+        {"$project": {"land_plot._id": 0}}
+      ],
+      "ships": [
+        {"$match": {"ownership.type": "ship"}},
+        {
+          "$lookup": {
+            "from": "ship",
+            "localField": "ownership.o_id",
+            "foreignField": "_id",
+            "as": "ship"
+          }
+        },
+        {"$project": {"ship._id": 0}}
+      ]
+    }
+  },
+  {$project: {all: {$setUnion: ["$cars", "$buildings", "$land_plots", "$ships"]}}},
+  {$unwind: "$all"},
+  {$replaceRoot: {newRoot: "$all"}},
+  {
+    "$group": {
+      "_id": {"name": "$name"},
+      "total": {"$sum": "$cost"},
+      "car": {"$addToSet": "$car"},
+      "building": {"$addToSet": "$building"},
+      "land_plot": {"$addToSet": "$land_plot"},
+      "ship": {"$addToSet": "$ship"}
+    }
+  }
+])
+// ----------------------------------------------------------------------------
+
+// 3
+db.owner.aggregate([
+  {
+    "$group": {
+      "_id": {
+        "name": "$name"
+      },
+      "total": {
+        "$sum": "$cost"
+      }
+    }
+  }
+])
+

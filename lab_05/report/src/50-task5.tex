@@ -1,0 +1,13 @@
+\leftsection{Задание}
+Используя функционалы, написать предикат \verb|set-equal|, который возвращает
+\verb|T|, если два его множества-аргумента (одноуровневые списки) содержат одни
+и те же элементы, порядок которых не имеет значения.
+
+\begin{lstlisting}[language=Lisp]
+(defun fand (a b) (if (and a b) T))
+
+(defun set-equal (set1 set2)
+  (cond ((/= (length set1) (length set2)) nil)
+        ((reduce 'fand (mapcar (lambda (x) (member x set1 :TEST 'equal)) set2)))))
+\end{lstlisting}
+

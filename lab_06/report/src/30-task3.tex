@@ -1,0 +1,27 @@
+\leftsection{Задание}
+Напишите рекурсивную функцию, которая умножает на заданное число-аргумент все
+числа из заданного списка-аргумента, когда
+
+\begin{enumerate}
+    \item все элементы списка --- числа,
+    \item элементы списка --- любые объекты.
+\end{enumerate}
+
+\begin{lstlisting}[language=Lisp]
+(defun mul-list-inner (lst val tmp)
+  (cond ((not lst) tmp)
+        ((numberp (car lst))
+         (mul-list-inner (cdr lst)
+                         val
+                         (append tmp
+                                 (cons (* val (car lst))
+                                       nil))))
+        ((mul-list-inner (cdr lst)
+                         val
+                         (append tmp
+                                 (cons (car lst)
+                                       nil))))))
+
+(defun mul-list (lst val) (mul-list-inner lst val nil))
+\end{lstlisting}
+

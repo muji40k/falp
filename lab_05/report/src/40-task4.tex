@@ -1,0 +1,9 @@
+\leftsection{Задание}
+Написать функцию, которая по своему списку-аргументу \verb|lst| определяет
+является ли он палиндромом (то есть равны ли \verb|lst| и
+\verb|(reverse lst)|), для одноуровнего смешанного списка.
+
+\begin{lstlisting}[language=Lisp]
+(defun palindromep (lst) (apply 'and (mapcar 'equal lst (reverse lst))))
+\end{lstlisting}
+

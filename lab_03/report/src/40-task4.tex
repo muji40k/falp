@@ -1,0 +1,10 @@
+\leftsection{Задание}
+Написать функцию, которая принимает три числа и возвращает Т только
+тогда, когда первое число расположено между вторым и третьим.
+
+\begin{lstlisting}[language=Lisp]
+(defun between (num num-l num-h)
+  (or (< num-l num num-h)
+      (> num-l num num-h)))
+\end{lstlisting}
+

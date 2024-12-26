@@ -1,0 +1,14 @@
+\leftsection{Задание}
+Написать, по крайней мере, два варианта функции, которая возвращает
+последний элемент своего списка-аргумента.
+
+\begin{lstlisting}[language=Lisp]
+(defun my-last-1 (lst)
+  (car (reverse lst)))
+
+(defun my-last-2 (lst)
+  (cond ((not lst) nil)
+        ((not (cdr lst)) (car lst))
+        ((my-last-2 (cdr lst)))))
+\end{lstlisting}
+

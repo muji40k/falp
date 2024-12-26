@@ -1,0 +1,8 @@
+\leftsection{Задание}
+Написать функцию, вычисляющую декартово произведение двух своих
+списков-аргументов.
+
+\begin{lstlisting}[language=Lisp]
+(defun times (a b) (mapcan (lambda (x) (mapcar (lambda (y) (list x y)) b)) a))
+\end{lstlisting}
+

@@ -1,0 +1,13 @@
+\leftsection{Задание}
+Напишите функцию, которая умножает на заданное число-аргумент все числа из
+заданного списка-аргумента, когда
+\begin{enumerate}
+    \item все элементы списка --- числа,
+    \item элементы списка --- любые объекты.
+\end{enumerate}
+
+\begin{lstlisting}[language=Lisp]
+(defun mul-list (lst val)
+  (mapcar (lambda (x) (if (numberp x) (* x val) x)) lst))
+\end{lstlisting}
+

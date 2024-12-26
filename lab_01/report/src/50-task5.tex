@@ -1,0 +1,69 @@
+\leftsection{Задание}
+Написать лямбда-выражение и соответствующую функцию, представить результаты в
+виде списочных ячеек.
+
+Написать функцию \verb|(f arl ar2 ar3 ar4)|, возвращающую \newline список:
+\verb|((arl ar2) (ar3 ar4))|.
+
+\begin{lstlisting}[language=Lisp]
+((lambda (arl ar2 ar3 ar4)
+   (cons (cons arl (cons ar2 nil)) (cons (cons ar3 (cons ar4 nil)) nil)))
+ 1 2 3 4)
+
+(defun f1-cons (arl ar2 ar3 ar4)
+  (cons (cons arl (cons ar2 nil)) (cons (cons ar3 (cons ar4 nil)) nil)))
+
+((lambda (arl ar2 ar3 ar4) (list (list arl ar2) (list ar3 ar4))) 1 2 3 4)
+
+(defun f1-list (arl ar2 ar3 ar4)
+  (list (list arl ar2) (list ar3 ar4)))
+\end{lstlisting}
+
+\begin{figure}[h]
+    \centering
+    \def\svgwidth{\textwidth}
+    \input{task-5-1.pdf_tex}
+\end{figure}
+
+\pagebreak
+
+Написать функцию \verb|(f arl ar2)|, возвращающую \verb|((arl) (ar2))|.
+
+\begin{lstlisting}[language=Lisp]
+((lambda (arl ar2)
+  (cons (cons arl nil) (cons (cons ar2 nil) nil))) 1 2)
+
+(defun f2-cons (arl ar2)
+  (cons (cons arl nil) (cons (cons ar2 nil) nil)))
+
+((lambda (arl ar2)
+   (list (list arl) (list ar2))) 1 2)
+
+(defun f2-list (arl ar2)
+  (list (list arl) (list ar2)))
+\end{lstlisting}
+
+\begin{figure}[h]
+    \centering
+    \def\svgwidth{0.9\textwidth}
+    \input{task-5-2.pdf_tex}
+\end{figure}
+
+Написать функцию \verb|(f arl)|, возвращающую \verb|(((arl)))|.
+
+\begin{lstlisting}[language=Lisp]
+((lambda (arl) (cons (cons (cons arl nil) nil) nil)) 1)
+
+(defun f3-cons (arl) (cons (cons (cons arl nil) nil) nil))
+
+((lambda (arl) (list (list (list arl)))) 1)
+
+(defun f3-list (arl) (list (list (list arl))))
+\end{lstlisting}
+
+\begin{figure}[h]
+    \centering
+    \def\svgwidth{0.4\textwidth}
+    \input{task-5-3.pdf_tex}
+\end{figure}
+

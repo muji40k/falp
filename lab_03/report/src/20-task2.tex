@@ -1,0 +1,10 @@
+\leftsection{Задание}
+Написать функцию, которая принимает число и возвращает число того же знака, но
+с модулем на 1 больше модуля аргумента.
+
+\begin{lstlisting}[language=Lisp]
+(defun mod-sum (num)
+  (+ num (/ num (abs num))))
+\end{lstlisting}
+
+

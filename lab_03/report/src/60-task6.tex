@@ -1,0 +1,9 @@
+\leftsection{Задание}
+Написать предикат, который принимает два числа-аргумента и возвращает Т, если
+первое число не меньше второго.
+
+\begin{lstlisting}[language=Lisp]
+(defun ge (num1 num2)
+  (let ((dif (- num2 num1))) (zerop (+ dif (abs dif)))))
+\end{lstlisting}
+

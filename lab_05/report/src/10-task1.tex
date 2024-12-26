@@ -1,0 +1,10 @@
+\leftsection{Задание}
+Напишите функцию, которая уменьшает на 10 все числа из списка-аргумента этой
+функции, проходя по верхнему уровню списковых ячеек. (* Список смешанный
+структурированный)
+
+\begin{lstlisting}[language=Lisp]
+(defun subtrcact10 (lst)
+  (mapcar (lambda (x) (if (numberp x) (- x 10) x)) lst))
+\end{lstlisting}
+

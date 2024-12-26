@@ -1,0 +1,14 @@
+\leftsection{Задание}
+Написать, по крайней мере, два варианта функции, которая возвращает
+свой список аргумент без последнего элемента.
+
+\begin{lstlisting}[language=Lisp]
+(defun no-last-1 (lst)
+  (cond ((not lst) nil)
+        ((not (cdr lst)) nil)
+        ((cons (car lst) (no-last-1 (cdr lst))))))
+
+(defun no-last-2 (lst)
+  (reverse (cdr (reverse lst))))
+\end{lstlisting}
+

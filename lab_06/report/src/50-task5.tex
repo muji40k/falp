@@ -1,0 +1,27 @@
+\leftsection{Задание}
+Написать рекурсивную версию (с именем \verb|rec-add|) вычисления суммы чисел заданного
+списка:
+\begin{enumerate}
+    \item одноуровнего смешанного,
+    \item структурированного.
+\end{enumerate}
+
+\begin{lstlisting}[language=Lisp]
+(defun rec-add-1-inner (lst sum)
+  (cond ((not lst) sum)
+        ((numberp (car lst)) (rec-add-1-inner (cdr lst) (+ sum (car lst))))
+        ((rec-add-1-inner (cdr lst) sum))))
+
+(defun rec-add-1 (lst)
+  (rec-add-1-inner lst 0))
+
+(defun rec-add-2-inner (lst sum)
+  (cond ((not lst) sum)
+        ((numberp (car lst)) (rec-add-2-inner (cdr lst) (+ sum (car lst))))
+        ((my-listp (car lst)) (rec-add-2-inner (cdr lst) (+ sum (rec-add-2-inner (car lst) 0))))
+        ((rec-add-2-inner (cdr lst) sum))))
+
+(defun rec-add-2 (lst)
+  (rec-add-2-inner lst 0))
+\end{lstlisting}
+
